@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus ticket | monobank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Noto+Sans:wght@400;500;600;700;800&family=Roboto:wght@400;500;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+            scrollbar-width: thin;
+            outline: 0;
+            text-size-adjust: none;
+            -webkit-text-size-adjust: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            background-color: #F4F4F4;
+            color: #000000;
+            font-size: 16px;
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 16px;
+        }
+
+        main {
+            width: 100%;
+            max-width: 620px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-layout-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Top Logo Badge */
+        .ticket-layout--logo-wrapper {
+            position: relative;
+            z-index: 10;
+            margin-bottom: -28px;
+        }
+
+        .ticket-layout--merchant-logo {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            background-color: #000000;
+        }
+
+        .ticket-layout--merchant-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        /* Ticket Main Card Container */
+        .ticket-layout--wrapper {
+            background: #FFFFFF;
+            width: 100%;
+            border-radius: 24px 24px 0 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding-top: 36px;
+            padding-bottom: 24px;
+        }
+
+        /* Security Marquee Banner */
+        .ticket-layout--secure-wrapper {
+            background-color: rgba(13, 104, 98, 0.1);
+            height: 36px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .ticket-layout--secure-inner-block {
+            display: flex;
+            white-space: nowrap;
+            animation: marquee 25s linear infinite;
+            will-change: transform;
+        }
+
+        .ticket-layout--secure-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: #0D6862;
+            white-space: nowrap;
+            margin: 0;
+            padding-right: 12px;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Ticket Top Block Info */
+        .ticket-layout--block.ticket-info {
+            color: rgb(0, 0, 0);
+            font-family: Lato, system-ui, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 13px 32px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .ticket-layout--merchant-title {
+            font-size: 17px;
+            font-weight: 500;
+            color: #111111;
+            margin-top: 10px;
+            margin-bottom: 12px;
+        }
+
+        .ticket-layout--merchant-separator {
+            width: 120px;
+            height: 1px;
+            background-color: #E2E8F0;
+            margin-bottom: 16px;
+        }
+
+        .ticket-layout--purchased-info {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 12px;
+        }
+
+        .ticket-layout--ticket-quantity {
+            font-family: inherit;
+            font-size: 40px;
+            font-weight: 649;
+            line-height: 48px;
+            margin-bottom: 4px;
+        }
+
+        /* Pill Badge: Ticket Invalid */
+        .ticket-layout--timer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+            text-wrap: nowrap;
+
+            position: relative;
+            max-height: 36px;
+            min-width: 240px;
+            padding: 6px 12px;
+            gap: 4px;
+            border-radius: 100px;
+
+            /* Змінні для кольорів */
+            --border-timer: #ACDABD;
+            --background-timer: linear-gradient(91deg, rgba(172, 218, 189, .5) 0%, rgba(170, 212, 248, .5) 100%);
+            --ring-color: #17954D;
+            --progress-color: #ACDABD;
+
+            /* Оригінальна рамка (яка була закреслена) та фон */
+            border: 0.5px solid var(--border-timer);
+            background: var(--background-timer);
+
+            container-type: inline-size;
+            margin-top: 12px;
+            margin-bottom: 16px;
+            font-size: 16px;
+            font-weight: 650;
+            color: #000000;
+        }
+
+        .ticket-layout--timer::before {
+            content: '';
+            position: absolute;
+            inset: calc(var(--border-size) * -1);
+            border-radius: 24px;
+            background: var(--background-border-timer);
+            z-index: -1;
+        }
+
+        /* Transport Type & ID */
+        .ticket-layout--transport-type {
+            font-size: 16px;
+            color: #4A5568;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ticket-layout--transport-id {
+            color: rgb(0, 0, 0);
+            font-family: Lato, system-ui, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 24px;
+            margin-left: 6px;
+            word-break: break-all;
+        }
+
+        /* Dashed Separator & Notches */
+        .ticket-layout--dashed-separator {
+            position: relative;
+            width: 100%;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+
+        .ticket-layout--dashed-separator-line {
+            width: 100%;
+            height: 2px;
+            background-image: linear-gradient(to right, #E2E8F0 60%, transparent 40%);
+            background-size: 20px 2px;
+            background-repeat: repeat-x;
+        }
+
+        /* Semi-circle notches at stub perforation */
+        .ticket-layout--dashed-separator::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background-color: #F4F4F4;
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .ticket-layout--dashed-separator::after {
+            content: '';
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background-color: #F4F4F4;
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        /* Bottom Block QR Code Info */
+        .ticket-layout--block.qr-info {
+            font-family: Lato, system-ui, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 36px 80px 94px;
+        }
+
+        .ticket-layout--qr-block-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 24px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .ticket-layout--qr-block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ticket-layout--qr-block canvas,
+        .ticket-layout--qr-block img {
+            display: block;
+        }
+
+        .qr-cat-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            background: #ffffff;
+            border-radius: 0;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ticket-layout--number-info {
+            font-size: 14px;
+            color: #4A5568;
+            position: absolute;
+            bottom: 42px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .ticket-number {
+            font-weight: 700;
+            color: #000000;
+        }
+
+        /* Scalloped Bottom Edge Wave of Ticket Stub */
+        .ticket-bottom-wave-container {
+            width: 100%;
+            height: 14px;
+            position: absolute;
+            bottom: -14px;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            border-radius: 0 0 16px 16px;
+        }
+
+        .ticket-bottom-wave {
+            width: 100%;
+            height: 14px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='14' viewBox='0 0 50 14'%3E%3Cpath d='M 0 0 Q 25 28 50 0 Z' fill='%23FFFFFF'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            background-size: calc(100% / 12) 14px;
+            background-position: calc(-100% / 24) 0;
+        }
+
+        /* Footer Notification Below Card */
+        .ticket-layout--notification {
+            font-family: Lato, system-ui, sans-serif;
+            font-size: 13px;
+            font-style: italic;
+            color: #718096;
+            text-align: center;
+            max-width: 280px;
+            line-height: 1.4;
+            margin-top: 32px;
+        }
+
+        .nowrap {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <main id="main">
+        <div class="main-layout-wrapper page-client-payment page-show-ticket" data-e2e="ticket-success-page">
+            <div class="ticket-layout--logo-wrapper">
+                <div id="merch-logo" class="ticket-layout--merchant-logo">
+                    <img src="https://icons.monobank.com.ua/inf/icon-mdpi/ekvajring.png" alt="Merchant Logo" />
+                </div>
+            </div>
+
+            <div class="ticket-layout--wrapper">
+                <div class="ticket-layout--secure-wrapper" aria-hidden="true">
+                    <div class="ticket-layout--secure-inner-block">
+                        <p class="ticket-layout--secure-text">Життя — цікаве, і мотивація то є сильна: філософія,
+                            психологія. Найголовніше — залишайтеся людьми і кричіть, що ви живі. Я живий! <span
+                                style="margin-left: 8px; margin-right: 8px;">⬥</span> Життя — цікаве, і мотивація то є
+                            сильна: філософія, психологія. Найголовніше — залишайтеся людьми і кричіть, що ви живі. Я
+                            живий! <span style="margin-left: 8px; margin-right: 8px;">⬥</span></p>
+                        <p class="ticket-layout--secure-text">Життя — цікаве, і мотивація то є сильна: філософія,
+                            психологія. Найголовніше — залишайтеся людьми і кричіть, що ви живі. Я живий! <span
+                                style="margin-left: 8px; margin-right: 8px;">⬥</span> Життя — цікаве, і мотивація то є
+                            сильна: філософія, психологія. Найголовніше — залишайтеся людьми і кричіть, що ви живі. Я
+                            живий! <span style="margin-left: 8px; margin-right: 8px;">⬥</span></p>
+                    </div>
+                </div>
+
+                <div class="ticket-layout--block ticket-info">
+                    <div class="ticket-layout--merchant-title">
+                        Автобус
+                    </div>
+                    <div class="ticket-layout--merchant-separator" aria-hidden="true"></div>
+                    <div class="ticket-layout--purchased-info">
+                        Purchased <span class="nowrap" id="purchased-date">September 30</span> in <span class="nowrap"
+                            id="purchased-time">9:34 AM</span>
+                    </div>
+                    <div class="ticket-layout--ticket-quantity">
+                        1 ticket
+                    </div>
+                    <div class="ticket-layout--timer" id="ticket-timer-wrapper">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="margin-right: 2px;">
+                            <circle cx="7" cy="7" r="5.5" stroke="#17954D" stroke-width="1.5" />
+                        </svg>
+                        <span>Ticket is valid — </span><span id="timer-countdown">58:00</span>
+                    </div>
+                    <div class="ticket-layout--transport-type">Автобус <span class="ticket-layout--transport-id">№
+                            0528</span></div>
+                </div>
+
+                <div class="ticket-layout--dashed-separator" aria-hidden="true">
+                    <div class="ticket-layout--dashed-separator-line"></div>
+                </div>
+
+                <div class="ticket-layout--block qr-info">
+                    <div class="ticket-layout--qr-block-wrapper" aria-hidden="true">
+                        <div class="ticket-layout--qr-block" id="ticket-qr" data-e2e="ticket-qr">
+                        </div>
+                        <div class="qr-cat-overlay">
+                            <svg width="36" height="33" viewBox="0 0 24 22" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M16.0302 4.29055C16.947 3.20992 18.0255 2.28178 19.2276 1.54212L20.0401 1.04219C20.4364 0.798334 20.9509 0.996893 21.0921 1.4482L21.4579 2.61755C22.1382 4.79218 22.4913 7.06018 22.5052 9.3434C23.119 10.2892 23.612 11.1352 23.612 12.5367C23.612 17.1242 19.4283 20.7317 14.2348 21.4568L14.1924 21.4628L12.2572 21.5822L10.322 21.4628L10.2796 21.4568C5.08604 20.7317 0.902344 17.1242 0.902344 12.5367C0.902344 11.2479 1.47881 10.2602 2.01939 9.36131C2.03816 7.04956 2.39568 4.75347 3.08025 2.55005L3.42093 1.45353C3.56201 0.999413 4.07933 0.799145 4.47786 1.04436L5.61405 1.74344C6.74489 2.43924 7.75338 3.3224 8.59926 4.35545C8.67638 4.32113 8.75172 4.28738 8.82555 4.25431C9.26928 4.05553 9.65845 3.88118 10.0529 3.75666C10.6541 3.56685 11.2856 3.4801 12.2572 3.4801C13.9708 3.4801 14.828 3.78838 16.0302 4.29055Z"
+                                    fill="#000000" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="ticket-layout--number-info">Number: <span class="ticket-number">682&nbsp;824</span>
+                    </div>
+                </div>
+
+                <div class="ticket-bottom-wave-container">
+                    <div class="ticket-bottom-wave"></div>
+                </div>
+            </div>
+
+            <div class="ticket-layout--notification">
+                You can reopen this page through your browser history
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script>
+        new QRCode(document.getElementById("ticket-qr"), {
+            text: "https://pay.mbnk.biz/Pky_C9gm_UIh?orderId=260930BkUjX1HSWGKWTy",
+            width: 200,
+            height: 200,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.M
+        });
+
+        (function updatePurchasedDateTime() {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const now = new Date();
+            const day = now.getDate();
+            const month = months[now.getMonth()];
+
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+
+            const dateElem = document.getElementById('purchased-date');
+            const timeElem = document.getElementById('purchased-time');
+            if (dateElem) dateElem.textContent = `${month} ${day}`;
+            if (timeElem) timeElem.textContent = `${hours}:${minutes} ${ampm}`;
+        })();
+
+        (function startTimer() {
+            let totalSeconds = 58 * 60;
+            const timerElem = document.getElementById('timer-countdown');
+            if (!timerElem) return;
+
+            function updateDisplay() {
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+                timerElem.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+
+            updateDisplay();
+            setInterval(() => {
+                if (totalSeconds > 0) {
+                    totalSeconds--;
+                    updateDisplay();
+                }
+            }, 1000);
+        })();
+    </script>
+</body>
+
+</html>
